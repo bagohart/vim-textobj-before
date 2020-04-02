@@ -1,0 +1,1 @@
+For the documentation to vim-before-textobj, see the corresponding README.md
