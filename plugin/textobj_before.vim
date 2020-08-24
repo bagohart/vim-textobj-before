@@ -3,52 +3,149 @@ if &compatible || exists("g:loaded_textobj_before")
     " finish
 endif
 " }}}
+"  lol / lol
+if !exists("g:textobj_before_enabled") || (g:textobj_before_enabled != 1)
+    " finish
+endif
 
 " Options {{{
-let g:textobj_before_separators = get(g:, "textobj_before_separators", [])
 let g:textobj_before_prefix_i = get(g:, "textobj_before_prefix_i", "ib")
 let g:textobj_before_prefix_a = get(g:, "textobj_before_prefix_a", "ab")
 " }}}
-"lol= aha
-"lol = aha
-"lol lol = aha
-    " lol = aha
-" \     'pattern': '\v^\s*\zs[^=]+\ze\s*\=',
+
+let prefix_a = g:textobj_before_prefix_a
+let prefix_i = g:textobj_before_prefix_i
+
+" separators: =,:;|./\'"!#
+" todo: 
+
+" not really loopable since the different special signs need to be escaped
+" in different ways and this is a nightmare x_X
 call textobj#user#plugin('before', {
 \   'equal_a': {
 \     'pattern': '\v^[^=]*\=',
-\     'select': ['ab='],
+\     'select': [ prefix_a . '=' ],
 \     'scan': 'nearest',
 \   },
 \   'equal_i': {
 \     'pattern': '\v^\s*\zs[^=]{-1,}\ze\s*\=',
-\     'select': ['ib='],
-\     'scan': 'nearest',
-\   },
-\   'letter_a': {
-\     'pattern': '\v^[^a]*\a',
-\     'select': ['aba'],
-\     'scan': 'nearest',
-\   },
-\   'letter_i': {
-" \a does not work equivalently in regex, denotes character class.
-\     'pattern': '\v^\s*\zs[^a]{-1,}\ze\s*a',
-\     'select': ['iba'],
+\     'select': [ prefix_i . '=' ],
 \     'scan': 'nearest',
 \   },
 \   'comma_a': {
 \     'pattern': '\v^[^,]*\,',
-\     'select': ['abc'],
+\     'select': [ prefix_a . ',' ],
 \     'scan': 'nearest',
 \   },
 \   'comma_i': {
 \     'pattern': '\v^\s*\zs[^,]{-1,}\ze\s*\,',
-" ib, does not work, but ibc does. why? o_O
-\     'select': ['ibc'],
+\     'select': [ prefix_i . ',' ],
+\     'scan': 'nearest',
+\   },
+\   'colon_a': {
+\     'pattern': '\v^[^:]*\:',
+\     'select': [ prefix_a . ':' ],
+\     'scan': 'nearest',
+\   },
+\   'colon_i': {
+\     'pattern': '\v^\s*\zs[^:]{-1,}\ze\s*\:',
+\     'select': [ prefix_i . ':' ],
+\     'scan': 'nearest',
+\   },
+\   'semicolon_a': {
+\     'pattern': '\v^[^;]*\;',
+\     'select': [ prefix_a . ';' ],
+\     'scan': 'nearest',
+\   },
+\   'semicolon_i': {
+\     'pattern': '\v^\s*\zs[^;]{-1,}\ze\s*\;',
+\     'select': [ prefix_i . ';' ],
+\     'scan': 'nearest',
+\   },
+\   'verticalbar_a': {
+\     'pattern': '\v^[^|]*\|',
+\     'select': [ prefix_a . '<bar>' ],
+\     'scan': 'nearest',
+\   },
+\   'verticalbar_i': {
+\     'pattern': '\v^\s*\zs[^|]{-1,}\ze\s*\|',
+\     'select': [ prefix_i . '<bar>' ],
+\     'scan': 'nearest',
+\   },
+\   'dot_a': {
+\     'pattern': '\v^[^.]*\.',
+\     'select': [ prefix_a . '.' ],
+\     'scan': 'nearest',
+\   },
+\   'dot_i': {
+\     'pattern': '\v^\s*\zs[^.]{-1,}\ze\s*\.',
+\     'select': [ prefix_i . '.' ],
+\     'scan': 'nearest',
+\   },
+\   'slash_a': {
+\     'pattern': '\v^[^/]*\/',
+\     'select': [ prefix_a . '/' ],
+\     'scan': 'nearest',
+\   },
+\   'slash_i': {
+\     'pattern': '\v^\s*\zs[^/]{-1,}\ze\s*\/',
+\     'select': [ prefix_i . '/' ],
+\     'scan': 'nearest',
+\   },
+\   'backslash_a': {
+\     'pattern': '\v^[^\\]*\\',
+\     'select': [ prefix_a . '\' ],
+\     'scan': 'nearest',
+\   },
+\   'backslash_i': {
+\     'pattern': '\v^\s*\zs[^\\]{-1,}\ze\s*\\',
+\     'select': [ prefix_i . '\' ],
+\     'scan': 'nearest',
+\   },
+\   'singlequote_a': {
+\     'pattern': '\v^[^'']*''',
+\     'select': [ prefix_a . '''' ],
+\     'scan': 'nearest',
+\   },
+\   'singlequote_i': {
+\     'pattern': '\v^\s*\zs[^'']{-1,}\ze\s*''',
+\     'select': [ prefix_i . '''' ],
+\     'scan': 'nearest',
+\   },
+\   'doublequote_a': {
+\     'pattern': '\v^[^"]*"',
+\     'select': [ prefix_a . '"' ],
+\     'scan': 'nearest',
+\   },
+\   'doublequote_i': {
+\     'pattern': '\v^\s*\zs[^"]{-1,}\ze\s*"',
+\     'select': [ prefix_i . '"' ],
+\     'scan': 'nearest',
+\   },
+\   'bang_a': {
+\     'pattern': '\v^[^!]*!',
+\     'select': [ prefix_a . '!' ],
+\     'scan': 'nearest',
+\   },
+\   'bang_i': {
+\     'pattern': '\v^\s*\zs[^!]{-1,}\ze\s*!',
+\     'select': [ prefix_i . '!' ],
+\     'scan': 'nearest',
+\   },
+\   'sharp_a': {
+\     'pattern': '\v^[^#]*#',
+\     'select': [ prefix_a . '#' ],
+\     'scan': 'nearest',
+\   },
+\   'sharp_i': {
+\     'pattern': '\v^\s*\zs[^#]{-1,}\ze\s*#',
+\     'select': [ prefix_i . '#' ],
 \     'scan': 'nearest',
 \   },
 \ })
 
+"  lololol \  lol
+"  lololol '  lol
 " function! textobj_before#enable(separators) abort " {{{
 "     for separator in separators
 "         execute 'onoremap ' . g:textobj_before_prefix_i . " :\<C-u>call s:select_i('" . separator . "')\<CR>"
