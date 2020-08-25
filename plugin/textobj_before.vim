@@ -1,12 +1,12 @@
 " Reload guard {{{
 if &compatible || exists("g:loaded_textobj_before")
-    " finish
+    finish
 endif " }}}
 
 " Finish guard {{{
 let g:textobj_before_enabled = get(g:, "textobj_before_enabled", 0)
 if g:textobj_before_enabled != 1
-    " finish
+    finish
 endif " }}}
 
 " Options {{{
@@ -22,6 +22,8 @@ let prefix_i = g:textobj_before_prefix_i
 
 " not trivially loopable since the different special signs need to be escaped
 " and it is just more robust this way ~_X
+" the names also cannot have any sign, therefore the objects are called
+" e.g. 'equal_a' instead of just `=_a'
 call textobj#user#plugin('before', {
 \   'equal_a': {
 \     'pattern': '\v^[^=]*\=',
