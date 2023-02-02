@@ -1,6 +1,9 @@
 # Vim-Textobj-Before
 This Vim plugin provides text objects to select text on a line *before* the specified character.
 
+*This plugin works well, but has a high startuptime. If you use Neovim, consider using a lua version of this plugin instead:*
+[*textobj-before.nvim*](https://github.com/bagohart/textobj-before.nvim)
+
 ## Requirements
 Developed and tested on Neovim 0.4.4, but should work on Vim 8, too.
 This plugin depends on [vim-textobj-user](https://github.com/kana/vim-textobj-user).
